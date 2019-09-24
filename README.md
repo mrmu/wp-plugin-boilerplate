@@ -1,5 +1,7 @@
 # WordPress Plugin Boilerplate Generator
 
+<img src="https://user-images.githubusercontent.com/271049/65505625-37c08700-defc-11e9-98a1-39f1b158ab34.png">
+
 ### Usage
 After install and activate wppb plugin, you can use shortcode [wppb-form] to show the generator form like wppb.me.
 
