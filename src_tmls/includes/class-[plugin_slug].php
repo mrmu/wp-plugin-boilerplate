@@ -112,6 +112,11 @@ class [plugin_slug_classname] {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-[plugin_slug]-i18n.php';
 
 		/**
+		 * The class responsible for register custom post types / taxonomy / post status
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-[plugin_slug]-custom_post_type.php';
+		
+		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-[plugin_slug]-admin.php';
@@ -123,7 +128,7 @@ class [plugin_slug_classname] {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-[plugin_slug]-public.php';
 
 		$this->loader = new [plugin_slug_classname]_Loader();
-
+		[plugin_slug_classname]_Custom_Post_Type::reg();
 	}
 
 	/**
