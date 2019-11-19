@@ -128,7 +128,7 @@ class [plugin_slug_classname] {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-[plugin_slug]-public.php';
 
 		$this->loader = new [plugin_slug_classname]_Loader();
-		[plugin_slug_classname]_Custom_Post_Type::reg();
+		[plugin_slug_classname]_Custom_Post_Type::reg($this->get_plugin_name());
 	}
 
 	/**
