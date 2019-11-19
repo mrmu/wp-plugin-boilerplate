@@ -128,7 +128,6 @@ class [plugin_slug_classname] {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-[plugin_slug]-public.php';
 
 		$this->loader = new [plugin_slug_classname]_Loader();
-		[plugin_slug_classname]_Custom_Post_Type::reg($this->get_plugin_name());
 	}
 
 	/**
@@ -158,10 +157,11 @@ class [plugin_slug_classname] {
 	private function define_admin_hooks() {
 
 		$plugin_admin = new [plugin_slug_classname]_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_cpt = new [plugin_slug_classname]_Custom_Post_Type( $this->get_plugin_name() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-
+		$this->loader->add_action( 'init', $plugin_cpt, 'reg' );
 	}
 
 	/**

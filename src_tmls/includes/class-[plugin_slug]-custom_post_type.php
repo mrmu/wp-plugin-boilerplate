@@ -21,7 +21,7 @@
  */
 class [plugin_slug_classname]_Custom_Post_Type {
 
-    public static function reg($plugin_name) {
+    public function reg($plugin_name) {
 
 		// if ( post_type_exists( "cpt_slug" ) )
         //     return;
@@ -72,7 +72,8 @@ class [plugin_slug_classname]_Custom_Post_Type {
         // // Custom Post types
 
 		// $singular  = __( 'CPT', $plugin_name );
-		// $plural = __( 'CPTs', $plugin_name );
+        // $plural = __( 'CPTs', $plugin_name );
+        // $menu_name = __( 'CPT Menu', $plugin_name );
 
         // $has_archive = false;
         // $rewrite     = array(
@@ -88,7 +89,7 @@ class [plugin_slug_classname]_Custom_Post_Type {
         //         'labels' => array(
         //             'name' 					=> $singular,
         //             'singular_name' 		=> $singular,
-        //             'menu_name'             => __( 'Events', $plugin_name ),
+        //             'menu_name'             => sprintf( __( '%s', $plugin_name ), $menu_name ),
         //             'all_items'             => sprintf( __( 'All %s', $plugin_name ), $plural ),
         //             'add_new' 				=> __( 'Add New', $plugin_name ),
         //             'add_new_item' 			=> sprintf( __( 'Add %s', $plugin_name ), $singular ),
