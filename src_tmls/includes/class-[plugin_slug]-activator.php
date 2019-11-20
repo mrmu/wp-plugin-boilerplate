@@ -40,7 +40,7 @@ class [plugin_slug_classname]_Activator {
 //   `update_date` date DEFAULT NULL,
 //   PRIMARY KEY (`ID`),
 //   KEY `EMAIL` (`email`)
-// ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
+// ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 // SQL;
 // 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 // 		dbDelta( $sql );
