@@ -40,6 +40,8 @@ class Wppb_Admin {
 	 */
 	private $version;
 
+	private $class_deps_check;
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -51,7 +53,12 @@ class Wppb_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-
+		// $this->class_deps_check = array(
+		// 	'woocommerce' => array(
+		// 		'status' => false,
+		// 		'err_msg' => __('WooCommerce is not activated, please activate it to use plugin: WPPB.', $this->plugin_name)
+		// 	),
+		// );
 	}
 
 	/**
@@ -108,6 +115,36 @@ class Wppb_Admin {
 			filemtime( (dirname( __FILE__ )) . '/js/wppb-admin.js' ), 
 			false );
 
+	}
+
+	public function class_deps_check_active() {
+		if (!is_array($this->class_deps_check)) {
+			return;
+		}
+		foreach ($this->class_deps_check as $chk_class => $info) {
+			if ( class_exists( $chk_class ) ) {
+				$this->class_deps_check[$chk_class]['status'] = true;
+			} else {
+				$this->class_deps_check[$chk_class]['status'] = false;
+			}
+		}
+	}
+
+	public function class_deps_check_admin_notice() {
+		if (!is_array($this->class_deps_check)) {
+			return;
+		}
+		foreach ($this->class_deps_check as $chk_class => $info) {
+			if ( $this->class_deps_check[$chk_class]['status'] === false ){
+				?>
+				<div class="notice notice-error is-dismissible">
+					<p>
+						<?php echo $this->class_deps_check[$chk_class]['err_msg']; ?>
+					</p>
+				</div>
+				<?php
+			}
+		}
 	}
 
 }

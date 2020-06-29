@@ -40,6 +40,8 @@ class [plugin_slug_classname]_Admin {
 	 */
 	private $version;
 
+	private $class_deps_check;
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -51,7 +53,52 @@ class [plugin_slug_classname]_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+		// $this->class_deps_check = array(
+		// 	'woocommerce' => array(
+		// 		'status' => false,
+		// 		'err_msg' => __('WooCommerce is not activated, please activate it to use plugin: [PLUGIN_NAME].', $this->plugin_name)
+		// 	),
+		// );
 
+	}
+
+	private function is_enqueue_pages($hook) {
+		global $post, $post_type;
+
+		if (empty($post_type)){
+			if (!empty($post)) {
+				$post_type = $post->post_type;
+			}
+		}
+
+		$load_post_types = array(
+			//post type slugs ...
+		);
+
+		$apply_pages = array(
+			'post-new.php' => $load_post_types, 	// new post
+			'edit.php' => $load_post_types,			// post list
+			'post.php' => $load_post_types,			// post edit
+			// other page name ($hook)
+			// e.g. toplevel_page_[plugin_slug]
+		);
+
+		// echo 'hook:['.$hook.'] '; // ref page name
+		// echo 'post_type:['.$post_type.'] ';
+
+		foreach ($apply_pages as $pg => $pts) {
+			if ($pg === $hook) {
+				if (!empty($pts) && is_array($pts)) {
+					if (in_array($post_type, $pts)) {
+						return true;
+					}
+				}
+				return true;
+			}else if ($pts === $hook) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -59,7 +106,7 @@ class [plugin_slug_classname]_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles() {
+	public function enqueue_styles($hook) {
 
 		/**
 		 * This function is provided for demonstration purposes only.
@@ -73,13 +120,15 @@ class [plugin_slug_classname]_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( 
-			$this->plugin_name, 
-			plugin_dir_url( __FILE__ ) . 'css/[plugin_slug]-admin.css', 
-			array(), 
-			filemtime( (dirname( __FILE__ )) . '/css/[plugin_slug]-admin.css' ), 
-			'all' 
-		);
+		if ($this->is_enqueue_pages($hook)) {
+			wp_enqueue_style( 
+				$this->plugin_name, 
+				plugin_dir_url( __FILE__ ) . 'css/[plugin_slug]-admin.css', 
+				array(), 
+				filemtime( (dirname( __FILE__ )) . '/css/[plugin_slug]-admin.css' ), 
+				'all' 
+			);
+		}
 	}
 
 	/**
@@ -87,7 +136,7 @@ class [plugin_slug_classname]_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_scripts() {
+	public function enqueue_scripts($hook) {
 
 		/**
 		 * This function is provided for demonstration purposes only.
@@ -101,13 +150,51 @@ class [plugin_slug_classname]_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( 
-			$this->plugin_name, 
-			plugin_dir_url( __FILE__ ) . 'js/[plugin_slug]-admin.js', 
-			array( 'jquery' ), 
-			filemtime( (dirname( __FILE__ )) . '/js/[plugin_slug]-admin.js' ), 
-			false );
-
+		if ($this->is_enqueue_pages($hook)) {
+			wp_enqueue_script( 
+				$this->plugin_name, 
+				plugin_dir_url( __FILE__ ) . 'js/[plugin_slug]-admin.js', 
+				array( 'jquery' ), 
+				filemtime( (dirname( __FILE__ )) . '/js/[plugin_slug]-admin.js' ), 
+				false 
+			);
+			wp_localize_script(
+				$this->plugin_name,
+				'[plugin_slug_funcname]_admin', 
+				array(
+					'ajax_url' => admin_url( 'admin-ajax.php' )
+				)
+			);
+		}
 	}
 
+	public function class_deps_check_active() {
+		if (!is_array($this->class_deps_check)) {
+			return;
+		}
+		foreach ($this->class_deps_check as $chk_class => $info) {
+			if ( class_exists( $chk_class ) ) {
+				$this->class_deps_check[$chk_class]['status'] = true;
+			} else {
+				$this->class_deps_check[$chk_class]['status'] = false;
+			}
+		}
+	}
+
+	public function class_deps_check_admin_notice() {
+		if (!is_array($this->class_deps_check)) {
+			return;
+		}
+		foreach ($this->class_deps_check as $chk_class => $info) {
+			if ( $this->class_deps_check[$chk_class]['status'] === false ){
+				?>
+				<div class="notice notice-error is-dismissible">
+					<p>
+						<?php echo $this->class_deps_check[$chk_class]['err_msg']; ?>
+					</p>
+				</div>
+				<?php
+			}
+		}
+	}
 }

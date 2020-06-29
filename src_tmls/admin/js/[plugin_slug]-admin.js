@@ -29,4 +29,27 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
+	$(document).on('click', '.clear_log', function( e ){
+		e.preventDefault();
+		$.ajax({
+			async: true,
+			type: 'POST',
+			url: [plugin_slug_funcname]_admin.ajax_url,
+			data: {
+				action: 'clear_log'
+			},
+			dataType: 'json',
+			success: function(res) {
+				// console.log(res);
+				if (res.data.done == true) {
+					$( '.logger_table tr.data' ).remove();
+				}
+			},
+			error:function (xhr, ajaxOptions, thrownError){
+				alert(ajaxOptions+':'+thrownError);
+				that.prop('disabled', false);
+			}
+		});
+	});
+
 })( jQuery );

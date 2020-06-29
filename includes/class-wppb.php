@@ -160,7 +160,8 @@ class Wppb {
 
 		// $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		// $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'class_deps_check_active' );
+		$this->loader->add_action( 'admin_notices', $plugin_admin, 'class_deps_check_admin_notice' );
 	}
 
 	/**

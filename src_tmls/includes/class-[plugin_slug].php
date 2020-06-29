@@ -121,6 +121,7 @@ class [plugin_slug_classname] {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-[plugin_slug]-admin.php';
 
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-[plugin_slug]-settings.php';
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
@@ -157,11 +158,28 @@ class [plugin_slug_classname] {
 	private function define_admin_hooks() {
 
 		$plugin_admin = new [plugin_slug_classname]_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_settings = new [plugin_slug_classname]_Settings( $this->get_plugin_name(), $this->get_version() );
 		$plugin_cpt = new [plugin_slug_classname]_Custom_Post_Type( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'class_deps_check_active' );
+		$this->loader->add_action( 'admin_notices', $plugin_admin, 'class_deps_check_admin_notice' );
+
+		// Custom post type
+
 		$this->loader->add_action( 'init', $plugin_cpt, 'reg' );
+
+		// Settings 
+
+		// Usage:
+		// $set = [plugin_slug_classname]_Settings_Factory::get_instance('general');
+		// $set->get_fd_option('lic_key'); // get field setting value
+
+		$this->loader->add_action( 'admin_menu', $plugin_settings, 'add_menu_items');
+		$this->loader->add_action( 'admin_init', $plugin_settings, 'register');
+		$this->loader->add_action( 'wp_ajax_clear_log', $plugin_settings, 'clear_log' );
+		$this->loader->add_action( '[plugin_slug_funcname]_log', $plugin_settings, 'add_log', 10, 2 );
 	}
 
 	/**
@@ -178,6 +196,8 @@ class [plugin_slug_classname] {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		$this->loader->add_action( 'init', $plugin_public, 'register_shortcodes' );
+		$this->loader->add_action( 'wp_ajax_send_to_backend', $plugin_public, 'send_to_backend' ); // logged in
+		$this->loader->add_action( 'wp_ajax_nopriv_send_to_backend', $plugin_public, 'send_to_backend' ); // not yet login
 	}
 
 	/**

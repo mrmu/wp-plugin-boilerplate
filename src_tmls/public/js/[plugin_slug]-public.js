@@ -29,4 +29,25 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
+    let do_send_to_backend = function(data) {
+        console.log('do_send_to_backend');
+        // console.log(data);
+		$.ajax({
+			async: true,
+			type: 'POST',
+			url: [plugin_slug_funcname]_public.ajax_url,
+			data: {
+				action: "send_to_backend",
+				arg: 'arg1'
+			},
+			dataType: 'json',
+			success: function(res) {
+				console.log(res);
+			},
+			error:function (xhr, ajaxOptions, thrownError){
+				console.log(ajaxOptions+':'+thrownError);
+			}
+		});
+    };
+
 })( jQuery );

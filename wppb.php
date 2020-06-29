@@ -37,6 +37,11 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'WPPB_VERSION', '1.0.0' );
 
+/* Require vendor libs */
+if (file_exists(__DIR__  . '/vendor/autoload.php')) {
+	require __DIR__  . '/vendor/autoload.php';
+}
+
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-wppb-activator.php

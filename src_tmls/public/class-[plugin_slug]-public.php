@@ -109,7 +109,29 @@ class [plugin_slug_classname]_Public {
 			filemtime( (dirname( __FILE__ )) . '/js/[plugin_slug]-public.js' ),
 			false 
 		);
+		wp_localize_script(
+			$this->plugin_name,
+			'[plugin_slug_funcname]_public', 
+			array(
+				'ajax_url' => admin_url( 'admin-ajax.php' )
+			)
+		);
+	}
 
+	// ajax functions
+	public function send_to_backend() {
+		if (empty($_POST['arg'])) {
+			$error = new WP_Error( 'arg_empty', 'Error: No data.', $this->plugin_name );
+ 			wp_send_json_error( $error );
+		}
+
+		$arg = sanitize_text_field($_POST['arg']);
+
+		$return = array(
+			'message' => __( 'Success', $this->plugin_name ),
+			'data' => $arg
+		);
+		wp_send_json_success( $return );
 	}
 
 	public function register_shortcodes() {
@@ -117,21 +139,23 @@ class [plugin_slug_classname]_Public {
 	}
 
 	public function my_short_code_display() {
-		if (!is_admin()) {
-			ob_start();
-			?>
-			<!-- my_short_code: some HTML tags with a little bit PHP. -->
-			<?php
-			/* Load client template from theme dir first, load template file of 
-			 * plugin/templates/ if client template is not exist.	
-			 */		
-			// if ( $overridden_template = locate_template( 'my-template.php' ) ) {
-			// 	load_template( $overridden_template );
-			// } else {
-			// 	load_template( dirname(dirname( __FILE__ )) . '/templates/my-template.php' );
-			// }
-			$results = ob_get_clean();
-			return $results;
+		if (is_admin()) {
+			return;
 		}
+
+		ob_start();
+		?>
+		<!-- my_short_code: some HTML tags with a little bit PHP. -->
+		<?php
+		/* Load client template from theme dir first, load template file of 
+			* plugin/templates/ if client template is not exist.	
+			*/		
+		// if ( $overridden_template = locate_template( 'my-template.php' ) ) {
+		// 	load_template( $overridden_template );
+		// } else {
+		// 	load_template( dirname(dirname( __FILE__ )) . '/templates/my-template.php' );
+		// }
+		$results = ob_get_clean();
+		return $results;
 	}
 }
