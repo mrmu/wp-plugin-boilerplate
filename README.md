@@ -3,7 +3,7 @@
 <img src="https://user-images.githubusercontent.com/271049/65505625-37c08700-defc-11e9-98a1-39f1b158ab34.png">
 
 ### Usage
-After install and activate wppb plugin, you can use shortcode [wppb-form] to show the generator form like wppb.me.
+After install and activate wppb plugin, you can use shortcode [wppb_form] to show the generator form like wppb.me.
 
 ### Customization
 
@@ -14,7 +14,7 @@ All the plugin boilerplate files stored in src_tmls/, you can modify them but pl
 Please crate a php file named "wppb-form.php" and place it under your current theme directory and then refer to templates/wppb-form.php to customize it.
 
 ### 使用方法
-安裝本外掛後，直接使用 [wppb-form] 來顯示如同 wppb.me 的提交表單。
+安裝本外掛後，直接使用 [wppb_form] 來顯示如同 wppb.me 的提交表單。
 
 ### 客製方式
 
