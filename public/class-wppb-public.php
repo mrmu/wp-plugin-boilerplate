@@ -145,8 +145,8 @@ class Wppb_Public {
 			} else {
 				// process form data
 				if (!isset($_POST['plugin_slug']) || !isset($_POST['plugin_name']) || 
-					!isset($_POST['plugin_uri']) || !isset($_POST['author_name']) ||
-					!isset($_POST['author_email']) || !isset($_POST['author_uri']) ) 
+					!isset($_POST['plugin_uri']) || !isset($_POST['au_name']) ||
+					!isset($_POST['au_email']) || !isset($_POST['au_uri']) ) 
 				{
 					$this->msgs[] = array(
 						'code' => '500', 
