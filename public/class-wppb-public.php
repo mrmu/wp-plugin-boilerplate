@@ -40,6 +40,8 @@ class Wppb_Public {
 	 */
 	private $version;
 
+	private $msgs;
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -51,7 +53,7 @@ class Wppb_Public {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-
+		$this->msgs = array();
 	}
 
 	/**
@@ -119,6 +121,7 @@ class Wppb_Public {
 	public function wppb_form_display() {
 		if (!is_admin()) {
 			ob_start();
+			set_query_var('wppb_msgs', $this->msgs );
 			if ( $overridden_template = locate_template( 'wppb-form.php' ) ) {
 				load_template( $overridden_template );
 			} else {
@@ -134,35 +137,53 @@ class Wppb_Public {
 		// Create ZIP file & Download
 		if (isset($_POST['create'])) {
 			if ( ! isset( $_POST['wppb_nonce_name'] ) || ! wp_verify_nonce( $_POST['wppb_nonce_name'], 'wppb_nonce_action' ) ) {
-			   print 'Sorry, your nonce did not verify.';
-			   exit;
+				$this->msgs[] = array(
+					'code' => '500', 
+					'msg' => __('Sorry, the nonce expired, please refresh page and try again.', $this->plugin_name)
+				);
+				return;
 			} else {
-			   // process form data
-			   $args['plugin_slug'] = sanitize_file_name($_POST['plugin_slug']);
-			   $args['plugin_name'] = sanitize_text_field($_POST['plugin_name']);
-			   $args['plugin_uri'] = esc_url_raw($_POST['plugin_uri']);
-			   $args['author_name'] = sanitize_text_field($_POST['au_name']);
-			   $args['author_email'] = sanitize_email($_POST['au_email']);
-			   $args['author_uri'] = esc_url_raw($_POST['au_uri']);
-   
-			   $wppb_doer = Wppb_Doer::get_doer($args);
-			   $zipfile = $wppb_doer->run();
-			   if (file_exists($zipfile)) {
-				   header("Pragma: public");
-				   header("Expires: 0");
-				   header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-				   header("Cache-Control: public");
-				   header("Content-Description: File Transfer");
-				   header("Content-type: application/octet-stream");
-				   header("Content-Transfer-Encoding: binary");
-				   header('Content-Disposition: attachment; filename="'.basename($zipfile).'"');
-				   header('Content-Length: ' . filesize($zipfile));
-				   flush();
-				   readfile($zipfile);
-				   // delete file
-				   unlink($zipfile);
-				   exit();
-			   }
+				// process form data
+				if (!isset($_POST['plugin_slug']) || !isset($_POST['plugin_name']) || 
+					!isset($_POST['plugin_uri']) || !isset($_POST['author_name']) ||
+					!isset($_POST['author_email']) || !isset($_POST['author_uri']) ) 
+				{
+					$this->msgs[] = array(
+						'code' => '500', 
+						'msg' => __('Please fill in required fields.', $this->plugin_name)
+					);
+					return;
+				}
+				$args['plugin_slug'] = sanitize_file_name($_POST['plugin_slug']);
+				$args['plugin_name'] = sanitize_text_field($_POST['plugin_name']);
+				$args['plugin_uri'] = esc_url_raw($_POST['plugin_uri']);
+				$args['author_name'] = sanitize_text_field($_POST['au_name']);
+				$args['author_email'] = sanitize_email($_POST['au_email']);
+				$args['author_uri'] = esc_url_raw($_POST['au_uri']);
+
+				$wppb_doer = Wppb_Doer::get_doer($args);
+				$zipfile = $wppb_doer->run();
+				if (file_exists($zipfile)) {
+					header("Pragma: public");
+					header("Expires: 0");
+					header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+					header("Cache-Control: public");
+					header("Content-Description: File Transfer");
+					header("Content-type: application/octet-stream");
+					header("Content-Transfer-Encoding: binary");
+					header('Content-Disposition: attachment; filename="'.basename($zipfile).'"');
+					header('Content-Length: ' . filesize($zipfile));
+					flush();
+					readfile($zipfile);
+					// delete file
+					unlink($zipfile);
+					exit();
+				}else{
+					$this->msgs[] = array(
+						'code' => '404', 
+						'msg' => printf(__('File (%s) not exist.', $this->plugin_name), $zipfile)
+					);
+				}
 			}
 		}
 	}

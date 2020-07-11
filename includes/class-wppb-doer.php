@@ -39,9 +39,10 @@ if ( ! class_exists( 'Wppb_Doer' ) ) {
 				'author_uri' => 'https://my-plugin.com/author',
 			);
 			$args = wp_parse_args( $args, $defaults );
-		
+
 			$obj_upload_dir = wp_upload_dir();
 			$this->upload_dir = $obj_upload_dir['basedir'];
+
 			// args
 			$this->plugin_slug =  $args['plugin_slug'];
 			$this->plugin_name =  $args['plugin_name'];

@@ -1,3 +1,14 @@
+<?php
+if (count($wppb_msgs) > 0) {
+	echo '<div class="alert alert-primary" role="alert">';
+	echo '<ul>';
+	foreach ($wppb_msgs as $msg) {
+		echo '<li>'.$msg['msg'].'</li>';
+	}
+	echo '</ul>';
+	echo '</div>';
+}
+?>
 <form method='post' action='' class="needs-validation" novalidate>
 	<?php wp_nonce_field( 'wppb_nonce_action', 'wppb_nonce_name' ); ?>
 	<div class="form-row">
