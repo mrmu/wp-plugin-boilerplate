@@ -147,9 +147,14 @@ class [plugin_slug_classname]_Public {
 		?>
 		<!-- my_short_code: some HTML tags with a little bit PHP. -->
 		<?php
+		
 		/* Load client template from theme dir first, load template file of 
-			* plugin/templates/ if client template is not exist.	
-			*/		
+		 * plugin/templates/ if client template is not exist.	
+		 */
+
+		/* Pass $vars to template file */
+		// set_query_var('vars', $this->vars );
+
 		// if ( $overridden_template = locate_template( 'my-template.php' ) ) {
 		// 	load_template( $overridden_template );
 		// } else {
