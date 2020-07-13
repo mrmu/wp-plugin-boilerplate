@@ -40,6 +40,8 @@ class [plugin_slug_classname]_Public {
 	 */
 	private $version;
 
+	private $general_settings;
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -51,7 +53,7 @@ class [plugin_slug_classname]_Public {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-
+		$this->general_settings = Mu_Group_Buy_Settings_Factory::get_instance('general');
 	}
 
 	/**
