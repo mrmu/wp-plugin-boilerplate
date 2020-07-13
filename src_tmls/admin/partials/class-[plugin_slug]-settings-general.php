@@ -47,6 +47,18 @@ class [plugin_slug_classname]_Settings_General extends [plugin_slug_classname]_S
 					'placeholder' => '',
 					'callback' => array($this, 'display_text_fd'), //args: fd_id
 				),
+				'g_recaptcha_v2_key' => array(
+					'title' => 'reCaptcha v2 Key',
+					'desc' => 'Google reCAPTCHA v2 Key',
+					'placeholder' => '',
+					'callback' => array($this, 'display_text_fd'), //args: fd_id
+				),
+				'g_recaptcha_v2_sec' => array(
+					'title' => 'reCaptcha v2 Secret',
+					'desc' => 'Google reCAPTCHA v2 Secret',
+					'placeholder' => '',
+					'callback' => array($this, 'display_text_fd'), //args: fd_id
+				),
 			)
 		);
 	}

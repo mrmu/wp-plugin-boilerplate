@@ -118,6 +118,22 @@ class [plugin_slug_classname]_Public {
 		);
 	}
 
+	public function add_grecaptcha_api_js() {
+		?>
+		<script src='https://www.google.com/recaptcha/api.js'></script>
+		<?php
+	}
+
+	private function recaptcha_v2_validation($recap_response){
+		$recap_secret = $this->general_settings->get_fd_option('g_recaptcha_v2_sec');
+		$response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$recap_secret.'&response='.$recap_response);
+		$response_data = json_decode($response, true);
+		if ($response_data["success"]) {
+			return true;
+		}
+		return false;
+	}
+
 	// ajax functions
 	public function send_to_backend() {
 		if (empty($_POST['arg'])) {
@@ -125,33 +141,46 @@ class [plugin_slug_classname]_Public {
  			wp_send_json_error( $error );
 		}
 
+		if (empty($_POST['recap_response'])) {
+			$error = new WP_Error( 'arg_empty', 'Error: No reCaptcha response.', $this->plugin_name );
+ 			wp_send_json_error( $error );
+		}
+
+		$recap_response = sanitize_text_field($_POST['recap_response']);
 		$arg = sanitize_text_field($_POST['arg']);
 
+		if (false === $this->recaptcha_v2_validation($recap_response)) {
+			$error = new WP_Error( 'recap_fail', 'Error: reCaptcha is invalid, please try again.', $this->plugin_name );
+ 			wp_send_json_error( $error );
+		}
 		$return = array(
-			'message' => __( 'Success', $this->plugin_name ),
-			'data' => $arg
+			'code' => 200,
+			'message' => __( 'Success.', $this->plugin_name )
 		);
 		wp_send_json_success( $return );
 	}
 
 	public function register_shortcodes() {
-		add_shortcode( 'my_short_code', array($this, 'my_short_code_display') );
+		add_shortcode( '[plugin_slug_funcname]_form', array($this, '[plugin_slug_funcname]_form_display') );
 	}
 
-	public function my_short_code_display( $atts, $content = '' ) {
+	public function [plugin_slug_funcname]_form_display( $atts, $content = '' ) {
 		if (is_admin()) {
 			return;
 		}
 
 		$atts = shortcode_atts( array(
 			'mode' => ''
-		), $atts, 'my_short_code' );
+		), $atts, '[plugin_slug_funcname]_form' );
 
 		$mode = $atts['mode'];
+		$g_recap_key = $this->general_settings->get_fd_option('g_recaptcha_v2_key');
 
 		ob_start();
+		// whould be $_POST['g-recaptcha-response'] 
 		?>
-		<!-- my_short_code: some HTML tags with a little bit PHP. -->
+		<div class="g-recaptcha" data-sitekey="<?php echo $g_recap_key;?>"></div>
+		<button type="button" id="btn_send_to_backend" class="btn btn-primary">Send to backend</button>
 		<?php
 		
 		/* Load client template from theme dir first, load template file of 

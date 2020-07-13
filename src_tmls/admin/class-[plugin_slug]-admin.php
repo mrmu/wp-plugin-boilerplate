@@ -168,6 +168,26 @@ class [plugin_slug_classname]_Admin {
 		}
 	}
 
+	// send woocommerce mail
+	private function wc_mail($args) {
+		if (empty($args) || !is_array($args) || empty($args['to']) ) {
+			return new WP_Error( 'invalid_args', __( 'Invalid arguments.', $this->plugin_name ) );
+		}
+		
+		$to = $args['to'];
+		$subject = $args['subject'];
+		$message_heading = $args['message_heading'];
+		$message_body = $args['message_body'];
+		$attachment = '';
+		if( !empty($args['attachment']) ){
+			$attachment = $args['attachment'];	
+		}
+		$mailer = WC()->mailer();		
+		$message = $mailer->wrap_message($message_heading, $message_body );
+		return $mailer->send( $to, $subject, $message, '', $attachment);
+	}
+
+	// check if the plugin need other class (that from another plugin)
 	public function class_deps_check_active() {
 		if (!is_array($this->class_deps_check)) {
 			return;

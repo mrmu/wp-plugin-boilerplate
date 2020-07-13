@@ -196,6 +196,7 @@ class [plugin_slug_classname] {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		$this->loader->add_action( 'init', $plugin_public, 'register_shortcodes' );
+		$this->loader->add_action( 'wp_head', $plugin_public, 'add_grecaptcha_api_js' );
 		$this->loader->add_action( 'wp_ajax_send_to_backend', $plugin_public, 'send_to_backend' ); // logged in
 		$this->loader->add_action( 'wp_ajax_nopriv_send_to_backend', $plugin_public, 'send_to_backend' ); // not yet login
 	}

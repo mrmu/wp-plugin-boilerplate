@@ -25,7 +25,9 @@ Please crate a php file named "wppb-form.php" and place it under your current th
 請在你目前使用的佈景目錄下建立 wppb-form.php 檔案，再參考外掛目錄下的 templates/wppb-form.php 進行客製修改。
 
 ### Features
-
+* 2020/07/13
+    * google recaptcha v2 (use shortcode to test)
+    * wc_mail()
 * 2020/6/27
     * class 相依性檢查設定及後台通知: $class_deps_check (如：使用本外掛前，必須先安裝 woocommerce)
     * 後台 css, js 僅在特定頁載入的設定: is_enqueue_pages()
