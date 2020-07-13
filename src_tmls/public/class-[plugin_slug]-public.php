@@ -138,10 +138,16 @@ class [plugin_slug_classname]_Public {
 		add_shortcode( 'my_short_code', array($this, 'my_short_code_display') );
 	}
 
-	public function my_short_code_display() {
+	public function my_short_code_display( $atts, $content = '' ) {
 		if (is_admin()) {
 			return;
 		}
+
+		$atts = shortcode_atts( array(
+			'mode' => ''
+		), $atts, 'my_short_code' );
+
+		$mode = $atts['mode'];
 
 		ob_start();
 		?>

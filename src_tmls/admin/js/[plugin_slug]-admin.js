@@ -30,6 +30,8 @@
 	 */
 
 	$(document).on('click', '.clear_log', function( e ){
+		const the_btn = $(this);
+		the_btn.prop('disabled', true);
 		e.preventDefault();
 		$.ajax({
 			async: true,
@@ -44,10 +46,11 @@
 				if (res.data.done == true) {
 					$( '.logger_table tr.data' ).remove();
 				}
+				the_btn.prop('disabled', false);
 			},
 			error:function (xhr, ajaxOptions, thrownError){
 				alert(ajaxOptions+':'+thrownError);
-				that.prop('disabled', false);
+				the_btn.prop('disabled', false);
 			}
 		});
 	});

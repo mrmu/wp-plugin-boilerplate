@@ -26,8 +26,8 @@ class [plugin_slug_classname]_Settings {
 
 	public function __construct( $plugin_name, $version ) {
 		$this->page = $plugin_name;
-		$this->logger_name = '[plugin_slug]-logger'; // also be option key
 		$this->plugin_name = $plugin_name;
+		$this->logger_name = $plugin_name.'-logger'; // also be option key
 		$this->version = $version;
 		$partial_settings_dir = trailingslashit( plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/');
 		include_once $partial_settings_dir . 'class-[plugin_slug]-settings-factory.php';
@@ -61,19 +61,22 @@ class [plugin_slug_classname]_Settings {
 	}
 
 	public function add_log($func_name, $data = ''){
-		$log = get_option($this->logger_name);
-		if(empty($log)){
-			$log = array();
+		$debug_mode = absint($this->settings['General']->get_fd_option('debug_mode'));
+		if ($debug_mode===1) {
+			$log = get_option($this->logger_name);
+			if(empty($log)){
+				$log = array();
+			}
+
+			$log[] = array(
+				'timestamp' => date("Y-m-d H:i:s"),
+				'func_name' => $func_name,
+				'data' => $data,
+			);
+
+			$log = array_slice($log, -99, 99);
+			update_option($this->logger_name, $log, false);
 		}
-
-		$log[] = array(
-			'timestamp' => date("Y-m-d H:i:s"),
-			'func_name' => $func_name,
-			'data' => $data,
-		);
-
-		$log = array_slice($log, -99, 99);
-		update_option($this->logger_name, $log, false);
 	}
 
 	/**
@@ -137,7 +140,7 @@ class [plugin_slug_classname]_Settings {
 	 */
 	public function sanitize( $input ) {
 		$new_input = '';
-		do_action('[plugin_slug_funcname]_log', 'sanitize input: ', $input);
+		do_action('[plugin_slug_funcname]_log', 'sanitize input: '. $input);
 
 		// Loop through the input and sanitize each of the values
 		if (is_array($input)) {
@@ -148,7 +151,7 @@ class [plugin_slug_classname]_Settings {
 		}else{
 			$new_input = $input;
 		}
-		do_action('[plugin_slug_funcname]_log', 'sanitize output: ', $new_input);
+		do_action('[plugin_slug_funcname]_log', 'sanitize output: '. $new_input);
 
 		return $new_input;
 	}
