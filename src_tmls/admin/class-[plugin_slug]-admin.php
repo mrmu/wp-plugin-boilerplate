@@ -79,8 +79,8 @@ class [plugin_slug_classname]_Admin {
 			'post-new.php' => $load_post_types, 		// new post
 			'edit.php' => $load_post_types,				// post list
 			'post.php' => $load_post_types,				// post edit
-			// 'toplevel_page_[plugin_slug]',			// Settings
-			// '[plugin_slug]_page_[plugin_slug]-logger	// Log
+			'toplevel_page_[plugin_slug]',				// Settings
+			'[plugin_slug]_page_[plugin_slug]-logger'	// Log
 		);
 
 		// echo 'hook:['.$hook.'] '; // ref page name

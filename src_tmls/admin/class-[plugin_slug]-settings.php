@@ -62,7 +62,7 @@ class [plugin_slug_classname]_Settings {
 
 	public function add_log($func_name, $data = ''){
 		$debug_mode = absint($this->settings['General']->get_fd_option('debug_mode'));
-		if ($debug_mode===1) {
+		if ($debug_mode === 1) {
 			$log = get_option($this->logger_name);
 			if(empty($log)){
 				$log = array();
