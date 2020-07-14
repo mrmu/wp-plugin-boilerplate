@@ -53,7 +53,7 @@ class [plugin_slug_classname]_Public {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-		$this->general_settings = Mu_Group_Buy_Settings_Factory::get_instance('general');
+		$this->general_settings = [plugin_slug_classname]_Settings_Factory::get_instance('general');
 	}
 
 	/**
