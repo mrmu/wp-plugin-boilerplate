@@ -112,6 +112,11 @@ class [plugin_slug_classname] {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-[plugin_slug]-i18n.php';
 
 		/**
+		 * The class responsible for utils (static functions)
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-[plugin_slug]-utils.php';
+
+		/**
 		 * The class responsible for register custom post types / taxonomy / post status
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-[plugin_slug]-custom_post_type.php';
