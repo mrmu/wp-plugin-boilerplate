@@ -29,30 +29,34 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
-	$(document).on('click', '.clear_log', function( e ){
-		const the_btn = $(this);
-		the_btn.prop('disabled', true);
-		e.preventDefault();
-		$.ajax({
-			async: true,
-			type: 'POST',
-			url: [plugin_slug_funcname]_admin.ajax_url,
-			data: {
-				action: 'clear_log'
-			},
-			dataType: 'json',
-			success: function(res) {
-				// console.log(res);
-				if (res.data.done == true) {
-					$( '.logger_table tr.data' ).remove();
+	$(function(){
+
+		$(document).on('click', '.clear_log', function( e ){
+			const the_btn = $(this);
+			the_btn.prop('disabled', true);
+			e.preventDefault();
+			$.ajax({
+				async: true,
+				type: 'POST',
+				url: [plugin_slug_funcname]_admin.ajax_url,
+				data: {
+					action: 'clear_log'
+				},
+				dataType: 'json',
+				success: function(res) {
+					// console.log(res);
+					if (res.data.done == true) {
+						$( '.logger_table tr.data' ).remove();
+					}
+					the_btn.prop('disabled', false);
+				},
+				error:function (xhr, ajaxOptions, thrownError){
+					alert(ajaxOptions+':'+thrownError);
+					the_btn.prop('disabled', false);
 				}
-				the_btn.prop('disabled', false);
-			},
-			error:function (xhr, ajaxOptions, thrownError){
-				alert(ajaxOptions+':'+thrownError);
-				the_btn.prop('disabled', false);
-			}
+			});
 		});
+
 	});
 
 })( jQuery );

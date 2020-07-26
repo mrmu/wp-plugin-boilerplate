@@ -83,6 +83,28 @@ class [plugin_slug_classname]_Settings_General extends [plugin_slug_classname]_S
 		<?php
 	}
 
+	public function display_select_fd($fd_id) {
+		$obj_setting = $this->get_setting();
+		$option_key = $obj_setting['option_key']; // 儲存 general 所有設定的 option_key 
+		$opts = get_option( $option_key );
+		$fd_options = $obj_setting['fields'][$fd_id]['options'];
+		$fd_desc = $obj_setting['fields'][$fd_id]['desc'];
+		$fd_name = $option_key.'['.$fd_id.']';
+		$fd_val = isset( $opts[$fd_id] ) ? $opts[$fd_id] : ''; 
+		?>
+		<select name="<?php echo $fd_name;?>">
+			<?php
+			foreach ($fd_options as $key => $val) {
+				?>
+				<option value="<?php echo $val?>" <?php selected($val, $fd_val);?>><?php echo $key?></option>
+				<?php
+			}
+			?>
+		</select>
+		<p class="description" ><?php echo $fd_desc;?></p>
+		<?php
+	}
+
 	public function display_checkbox_fd($fd_id) {
 		if (empty($fd_id)) {
 			echo __('Field ID is required.', '[plugin_slug]');

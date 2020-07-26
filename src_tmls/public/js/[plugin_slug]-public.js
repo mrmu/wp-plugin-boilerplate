@@ -57,15 +57,19 @@
 		});
 	};
 	
-	$(document).on('click', '#btn_send_to_backend', function(e){
-		const the_btn = $(this);
-		const data = {
-			action: 'send_to_backend',
-			arg: 'arg1',
-			recap_response: grecaptcha.getResponse()
-		};
-		the_btn.prop('disabled', true);
-		do_send_to_backend(data, the_btn);
+	$(function(){
+
+		$(document).on('click', '#btn_send_to_backend', function(e){
+			const the_btn = $(this);
+			const data = {
+				action: 'send_to_backend',
+				arg: 'arg1',
+				recap_response: grecaptcha.getResponse()
+			};
+			the_btn.prop('disabled', true);
+			do_send_to_backend(data, the_btn);
+		});
+
 	});
 
 })( jQuery );

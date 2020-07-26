@@ -8,7 +8,11 @@ abstract class [plugin_slug_classname]_Settings_Abstract{
 		$obj_setting = $this->get_setting();
 		$opts = get_option( $obj_setting['option_key'] );
 		if (!empty($key)) {
-			return $opts[$key];
+			if (!empty($opts[$key])) {
+				return $opts[$key];
+			}else{
+				return '';
+			}
 		}
 		return $opts;
 	}
