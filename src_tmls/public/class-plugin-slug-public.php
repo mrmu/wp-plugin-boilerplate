@@ -6,8 +6,8 @@
  * @link       [AUTHOR_URI]
  * @since      1.0.0
  *
- * @package    [plugin_slug_classname]
- * @subpackage [plugin_slug_classname]/public
+ * @package    Plugin_Slug
+ * @subpackage Plugin_Slug/public
  */
 
 /**
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the public-facing stylesheet and JavaScript.
  *
- * @package    [plugin_slug_classname]
- * @subpackage [plugin_slug_classname]/public
+ * @package    Plugin_Slug
+ * @subpackage Plugin_Slug/public
  * @author     [AUTHOR_NAME] <[AUTHOR_EMAIL]>
  */
-class [plugin_slug_classname]_Public {
+class Plugin_Slug_Public {
 
 	/**
 	 * The ID of this plugin.
@@ -53,7 +53,7 @@ class [plugin_slug_classname]_Public {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-		$this->general_settings = [plugin_slug_classname]_Settings_Factory::get_instance('general');
+		$this->general_settings = Plugin_Slug_Settings_Factory::get_instance('general');
 	}
 
 	/**
@@ -67,19 +67,19 @@ class [plugin_slug_classname]_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in [plugin_slug]_Loader as all of the hooks are defined
+		 * defined in plugin-slug_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The [plugin_slug]_Loader will then create the relationship
+		 * The plugin-slug_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
 		wp_enqueue_style( 
 			$this->plugin_name, 
-			plugin_dir_url( __FILE__ ) . 'css/[plugin_slug]-public.css', 
+			plugin_dir_url( __FILE__ ) . 'css/plugin-slug-public.css', 
 			array(), 
-			filemtime( (dirname( __FILE__ )) . '/css/[plugin_slug]-public.css' ),
+			filemtime( (dirname( __FILE__ )) . '/css/plugin-slug-public.css' ),
 			'all' 
 		);
 
@@ -96,24 +96,24 @@ class [plugin_slug_classname]_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in [plugin_slug]_Loader as all of the hooks are defined
+		 * defined in plugin-slug_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The [plugin_slug]_Loader will then create the relationship
+		 * The plugin-slug_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
 		wp_enqueue_script( 
 			$this->plugin_name, 
-			plugin_dir_url( __FILE__ ) . 'js/[plugin_slug]-public.js', 
+			plugin_dir_url( __FILE__ ) . 'js/plugin-slug-public.js', 
 			array( 'jquery' ), 
-			filemtime( (dirname( __FILE__ )) . '/js/[plugin_slug]-public.js' ),
+			filemtime( (dirname( __FILE__ )) . '/js/plugin-slug-public.js' ),
 			false 
 		);
 		wp_localize_script(
 			$this->plugin_name,
-			'[plugin_slug_funcname]_public', 
+			'plugin_slug_public', 
 			array(
 				'ajax_url' => admin_url( 'admin-ajax.php' )
 			)
@@ -163,17 +163,17 @@ class [plugin_slug_classname]_Public {
 	}
 
 	public function register_shortcodes() {
-		add_shortcode( '[plugin_slug_funcname]_form', array($this, '[plugin_slug_funcname]_form_display') );
+		add_shortcode( 'plugin_slug_form', array($this, 'plugin_slug_form_display') );
 	}
 
-	public function [plugin_slug_funcname]_form_display( $atts, $content = '' ) {
+	public function plugin_slug_form_display( $atts, $content = '' ) {
 		if (is_admin()) {
 			return;
 		}
 
 		$atts = shortcode_atts( array(
 			'mode' => ''
-		), $atts, '[plugin_slug_funcname]_form' );
+		), $atts, 'plugin_slug_form' );
 
 		$mode = $atts['mode'];
 		$g_recap_key = $this->general_settings->get_fd_option('g_recaptcha_v2_key');

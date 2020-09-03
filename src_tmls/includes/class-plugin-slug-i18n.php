@@ -9,8 +9,8 @@
  * @link       [AUTHOR_URI]
  * @since      1.0.0
  *
- * @package    [plugin_slug_classname]
- * @subpackage [plugin_slug_classname]/includes
+ * @package    Plugin_Slug
+ * @subpackage Plugin_Slug/includes
  */
 
 /**
@@ -20,11 +20,11 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    [plugin_slug_classname]
- * @subpackage [plugin_slug_classname]/includes
+ * @package    Plugin_Slug
+ * @subpackage Plugin_Slug/includes
  * @author     [AUTHOR_NAME] <[AUTHOR_EMAIL]>
  */
-class [plugin_slug_classname]_i18n {
+class Plugin_Slug_i18n {
 
 
 	/**
@@ -35,7 +35,7 @@ class [plugin_slug_classname]_i18n {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			'[plugin_slug]',
+			'plugin-slug',
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);

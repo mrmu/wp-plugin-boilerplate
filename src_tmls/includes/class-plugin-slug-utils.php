@@ -1,5 +1,5 @@
 <?php
-class [plugin_slug_classname]_Utils {
+class Plugin_Slug_Utils {
     public function __construct() {
 	}
 
@@ -11,7 +11,7 @@ class [plugin_slug_classname]_Utils {
 	// 	'message_heading' => $subject,
 	// 	'message_body' => $message
 	// );
-	// $mail_rst = [plugin_slug_classname]_Utils::wc_mail( $email_args );
+	// $mail_rst = Plugin_Slug_Utils::wc_mail( $email_args );
 	// if (is_wp_error($mail_rst)) {
 	// 	// wp_send_json_error( $mail_rst );
 	// }
@@ -22,7 +22,7 @@ class [plugin_slug_classname]_Utils {
 
 	public static function wc_mail($args) {
 		if (empty($args) || !is_array($args) || empty($args['to']) ) {
-			return new WP_Error( 'invalid_args', __( 'WC Mail: Invalid arguments.', [plugin_slug] ) );
+			return new WP_Error( 'invalid_args', __( 'WC Mail: Invalid arguments.', plugin-slug ) );
 		}
 		
 		$to = $args['to'];

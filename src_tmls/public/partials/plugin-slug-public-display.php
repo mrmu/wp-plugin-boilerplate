@@ -8,8 +8,8 @@
  * @link       [AUTHOR_URI]
  * @since      1.0.0
  *
- * @package    [plugin_slug_classname]
- * @subpackage [plugin_slug_classname]/public/partials
+ * @package    Plugin_Slug
+ * @subpackage Plugin_Slug/public/partials
  */
 ?>
 

@@ -1,0 +1,63 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+/* Settings style */
+.custom-file{
+	position: relative;
+	display: inline-block;
+	width: auto;
+	height: calc(2.25rem + 2px);
+	margin-bottom: 0;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #212529;
+	text-align: left;
+}
+.custom-file-input{
+	position: relative;
+	z-index: 2;
+	width: auto;
+	height: calc(2.25rem + 2px);
+	margin: 0;
+	opacity: 0;
+	overflow: visible;
+}
+.custom-file-label{
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: 1;
+	padding: .375rem .75rem;
+	line-height: 1.5;
+	color: #495057;
+	background-color: #fff;
+	border: 1px solid #ced4da;
+	border-radius: .25rem;
+	display: inline-block;
+}
+.custom-file-label:after{
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 3;
+	display: block;
+	padding: .375rem .75rem;
+	line-height: 1.5;
+	color: #495057;
+	content: "Browse";
+	background-color: #e9ecef;
+	border-left: 1px solid #ced4da;
+	border-radius: 0 .25rem .25rem 0;
+}
+
+table.settings{
+    margin-top: 10px;
+}
+table.settings tr th{
+    padding: 15px 10px;
+}

@@ -10,7 +10,7 @@
  *
  * @link              [AUTHOR_URI]
  * @since             1.0.0
- * @package           [plugin_slug_classname]
+ * @package           Plugin_Slug
  *
  * @wordpress-plugin
  * Plugin Name:       [PLUGIN_NAME]
@@ -21,7 +21,7 @@
  * Author URI:        [AUTHOR_URI]
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       [plugin_slug]
+ * Text Domain:       plugin-slug
  * Domain Path:       /languages
  */
 
@@ -35,34 +35,34 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( '[PLUGIN_SLUG]_VERSION', '1.0.0' );
+define( 'PLUGIN_SLUG_VERSION', '1.0.0' );
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-[plugin_slug]-activator.php
+ * This action is documented in includes/class-plugin-slug-activator.php
  */
-function activate_[plugin_slug_funcname]() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-[plugin_slug]-activator.php';
-	[plugin_slug_classname]_Activator::activate();
+function activate_plugin_slug() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-plugin-slug-activator.php';
+	Plugin_Slug_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-[plugin_slug]-deactivator.php
+ * This action is documented in includes/class-plugin-slug-deactivator.php
  */
-function deactivate_[plugin_slug_funcname]() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-[plugin_slug]-deactivator.php';
-	[plugin_slug_classname]_Deactivator::deactivate();
+function deactivate_plugin_slug() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-plugin-slug-deactivator.php';
+	Plugin_Slug_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_[plugin_slug_funcname]' );
-register_deactivation_hook( __FILE__, 'deactivate_[plugin_slug_funcname]' );
+register_activation_hook( __FILE__, 'activate_plugin_slug' );
+register_deactivation_hook( __FILE__, 'deactivate_plugin_slug' );
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-[plugin_slug].php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-plugin-slug.php';
 
 /**
  * Begins execution of the plugin.
@@ -73,10 +73,10 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-[plugin_slug].php';
  *
  * @since    1.0.0
  */
-function run_[plugin_slug_funcname]() {
+function run_plugin_slug() {
 
-	$plugin = new [plugin_slug_classname]();
+	$plugin = new Plugin_Slug();
 	$plugin->run();
 
 }
-run_[plugin_slug_funcname]();
+run_plugin_slug();

@@ -6,8 +6,8 @@
  * @link       [AUTHOR_URI]
  * @since      1.0.0
  *
- * @package    [plugin_slug_classname]
- * @subpackage [plugin_slug_classname]/includes
+ * @package    Plugin_Slug
+ * @subpackage Plugin_Slug/includes
  */
 
 /**
@@ -16,11 +16,11 @@
  * This class defines all code necessary to run during the plugin's deactivation.
  *
  * @since      1.0.0
- * @package    [plugin_slug_classname]
- * @subpackage [plugin_slug_classname]/includes
+ * @package    Plugin_Slug
+ * @subpackage Plugin_Slug/includes
  * @author     [AUTHOR_NAME] <[AUTHOR_EMAIL]>
  */
-class [plugin_slug_classname]_Deactivator {
+class Plugin_Slug_Deactivator {
 
 	/**
 	 * Short Description. (use period)

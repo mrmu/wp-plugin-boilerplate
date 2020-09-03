@@ -5,8 +5,8 @@
  * @link       [AUTHOR_URI]
  * @since      1.0.0
  *
- * @package    [plugin_slug_classname]
- * @subpackage [plugin_slug_classname]/includes
+ * @package    Plugin_Slug
+ * @subpackage Plugin_Slug/includes
  */
 
 /**
@@ -15,11 +15,11 @@
  * Maintain a list of all custom post types that are registered throughout
  * the plugin, and register them with the WordPress API.
  *
- * @package    [plugin_slug_classname]
- * @subpackage [plugin_slug_classname]/includes
+ * @package    Plugin_Slug
+ * @subpackage Plugin_Slug/includes
  * @author     [AUTHOR_NAME] <[AUTHOR_EMAIL]>
  */
-class [plugin_slug_classname]_Custom_Post_Type {
+class Plugin_Slug_Custom_Post_Type {
 
 	/**
 	 * The ID of this plugin.

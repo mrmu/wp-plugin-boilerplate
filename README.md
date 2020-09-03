@@ -25,6 +25,9 @@ Please crate a php file named "wppb-form.php" and place it under your current th
 請在你目前使用的佈景目錄下建立 wppb-form.php 檔案，再參考外掛目錄下的 templates/wppb-form.php 進行客製修改。
 
 ### Features
+* 2020/09/03
+    * 重新命名 src_tmls/ 
+    * 整理 settings，增加欄位類型
 * 2020/07/13
     * google recaptcha v2 (use shortcode to test)
     * wc_mail()

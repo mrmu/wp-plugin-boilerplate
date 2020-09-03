@@ -30,6 +30,17 @@
 	 */
 
 	$(function(){
+		$('.hide-tr').each(function(){
+			$(this).closest('tr').hide();
+		});
+		$('.hide-th').each(function(){
+			$(this).closest('tr').find('th').html('');
+		});
+		// upload file
+		$('body').on('change', '.custom-file-input', function(){
+			let fileName = $(this)[0].files[0].name;
+			$(this).next('.custom-file-label').addClass("selected").html(fileName);
+		});
 
 		$(document).on('click', '.clear_log', function( e ){
 			const the_btn = $(this);
@@ -38,7 +49,7 @@
 			$.ajax({
 				async: true,
 				type: 'POST',
-				url: [plugin_slug_funcname]_admin.ajax_url,
+				url: plugin_slug_admin.ajax_url,
 				data: {
 					action: 'clear_log'
 				},

@@ -6,8 +6,8 @@
  * @link       [AUTHOR_URI]
  * @since      1.0.0
  *
- * @package    [plugin_slug_classname]
- * @subpackage [plugin_slug_classname]/includes
+ * @package    Plugin_Slug
+ * @subpackage Plugin_Slug/includes
  */
 
 /**
@@ -17,11 +17,11 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    [plugin_slug_classname]
- * @subpackage [plugin_slug_classname]/includes
+ * @package    Plugin_Slug
+ * @subpackage Plugin_Slug/includes
  * @author     [AUTHOR_NAME] <[AUTHOR_EMAIL]>
  */
-class [plugin_slug_classname]_Loader {
+class Plugin_Slug_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

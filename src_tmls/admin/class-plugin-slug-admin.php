@@ -6,8 +6,8 @@
  * @link       [AUTHOR_URI]
  * @since      1.0.0
  *
- * @package    [plugin_slug_classname]
- * @subpackage [plugin_slug_classname]/admin
+ * @package    Plugin_Slug
+ * @subpackage Plugin_Slug/admin
  */
 
 /**
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    [plugin_slug_classname]
- * @subpackage [plugin_slug_classname]/admin
+ * @package    Plugin_Slug
+ * @subpackage Plugin_Slug/admin
  * @author     [AUTHOR_NAME] <[AUTHOR_EMAIL]>
  */
-class [plugin_slug_classname]_Admin {
+class Plugin_Slug_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -79,8 +79,8 @@ class [plugin_slug_classname]_Admin {
 			'post-new.php' => $load_post_types, 		// new post
 			'edit.php' => $load_post_types,				// post list
 			'post.php' => $load_post_types,				// post edit
-			'toplevel_page_[plugin_slug]',				// Settings
-			'[plugin_slug]_page_[plugin_slug]-logger'	// Log
+			'toplevel_page_plugin-slug',				// Settings
+			'plugin-slug_page_plugin-slug-logger'	// Log
 		);
 
 		// echo 'hook:['.$hook.'] '; // ref page name
@@ -112,10 +112,10 @@ class [plugin_slug_classname]_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in [plugin_slug]_Loader as all of the hooks are defined
+		 * defined in plugin-slug_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The [plugin_slug]_Loader will then create the relationship
+		 * The plugin-slug_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
@@ -123,9 +123,9 @@ class [plugin_slug_classname]_Admin {
 		if ($this->is_enqueue_pages($hook)) {
 			wp_enqueue_style( 
 				$this->plugin_name, 
-				plugin_dir_url( __FILE__ ) . 'css/[plugin_slug]-admin.css', 
+				plugin_dir_url( __FILE__ ) . 'css/plugin-slug-admin.css', 
 				array(), 
-				filemtime( (dirname( __FILE__ )) . '/css/[plugin_slug]-admin.css' ), 
+				filemtime( (dirname( __FILE__ )) . '/css/plugin-slug-admin.css' ), 
 				'all' 
 			);
 		}
@@ -142,10 +142,10 @@ class [plugin_slug_classname]_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in [plugin_slug]_Loader as all of the hooks are defined
+		 * defined in plugin-slug_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The [plugin_slug]_Loader will then create the relationship
+		 * The plugin-slug_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
@@ -153,14 +153,14 @@ class [plugin_slug_classname]_Admin {
 		if ($this->is_enqueue_pages($hook)) {
 			wp_enqueue_script( 
 				$this->plugin_name, 
-				plugin_dir_url( __FILE__ ) . 'js/[plugin_slug]-admin.js', 
+				plugin_dir_url( __FILE__ ) . 'js/plugin-slug-admin.js', 
 				array( 'jquery' ), 
-				filemtime( (dirname( __FILE__ )) . '/js/[plugin_slug]-admin.js' ), 
+				filemtime( (dirname( __FILE__ )) . '/js/plugin-slug-admin.js' ), 
 				false 
 			);
 			wp_localize_script(
 				$this->plugin_name,
-				'[plugin_slug_funcname]_admin', 
+				'plugin_slug_admin', 
 				array(
 					'ajax_url' => admin_url( 'admin-ajax.php' )
 				)

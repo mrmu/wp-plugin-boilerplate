@@ -115,7 +115,7 @@ if ( ! class_exists( 'Wppb_Doer' ) ) {
 							if( ($file !== ".") && ($file !== "..")) {
 								foreach ($replace_args as $find => $replace) {
 									// dir rename
-									if ($find == '[plugin_slug]' && false !== strpos($file, '[plugin_slug]')) {
+									if ($find == 'plugin-slug' && false !== strpos($file, 'plugin-slug')) {
 										$new_file = str_replace($find, $replace, $file);
 										// echo 'dir rename: '.$dir.$file.' to '.$dir.$new_file."\n";
 										rename($dir.$file, $dir.$new_file);
@@ -130,7 +130,7 @@ if ( ! class_exists( 'Wppb_Doer' ) ) {
 								if( ($file !== ".") && ($file !== "..")) {
 									foreach ($replace_args as $find => $replace) {
 										// file rename
-										if ($find == '[plugin_slug]' && false !== strpos($file, '[plugin_slug]')) {
+										if ($find == 'plugin-slug' && false !== strpos($file, 'plugin-slug')) {
 											$new_file = str_replace($find, $replace, $file);
 											// echo 'file rename: '.$dir.$file.' to '.$dir.$new_file."\n";
 											rename($dir.$file, $dir.$new_file);
@@ -212,16 +212,24 @@ if ( ! class_exists( 'Wppb_Doer' ) ) {
 			return self::$wppb_doer_instance;
 		}
 
+		// conver "plugin-slug" to diff format cases
 		private function slug_format($slug, $mode = 'ucwords') {
 			$esc_chars = array('-', '－', '_', '＿');
+			// convert "plugin-slug" to "plugin slug"
 			for ($i = 0; $i < count($esc_chars); $i++) {
 				$slug = str_replace($esc_chars[$i], " ", $slug);
 			}
+			// "plugin slug" to ["Plugin", "Slug"]
 			$slugs = explode(" ", ucwords($slug));
+
+			// to "Plugin_Slug"
 			$slug = implode('_', $slugs);
+
 			if ($mode == 'upper') {
+				// "PLUGIN_SLUG"
 				return strtoupper($slug);
 			}elseif ($mode == 'lower') {
+				// "plugin_slug"
 				return strtolower($slug);
 			}
 			return $slug;
@@ -236,10 +244,10 @@ if ( ! class_exists( 'Wppb_Doer' ) ) {
 		
 			// step2. strings replacement
 			$replace_args = array(
-				'[plugin_slug_classname]' => $this->slug_format($this->plugin_slug),
-				'[plugin_slug_funcname]' => $this->slug_format($this->plugin_slug, 'lower'),
-				'[plugin_slug]' => strtolower($this->plugin_slug),
-				'[PLUGIN_SLUG]' => $this->slug_format($this->plugin_slug, 'upper'), 
+				'Plugin_Slug' => $this->slug_format($this->plugin_slug),
+				'plugin_slug' => $this->slug_format($this->plugin_slug, 'lower'),
+				'plugin-slug' => strtolower($this->plugin_slug),
+				'PLUGIN_SLUG' => $this->slug_format($this->plugin_slug, 'upper'), 
 				'[PLUGIN_NAME]' => $this->plugin_name,
 				'[PLUGIN_URI]' => $this->plugin_uri,
 				'[AUTHOR_NAME]' => $this->author_name,

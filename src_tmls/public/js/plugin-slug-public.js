@@ -38,7 +38,7 @@
 		$.ajax({
 			async: true,
 			type: 'POST',
-			url: [plugin_slug_funcname]_public.ajax_url,
+			url: plugin_slug_public.ajax_url,
 			data: data,
 			dataType: 'json',
 			success: function(res) {

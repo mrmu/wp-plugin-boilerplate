@@ -9,8 +9,8 @@
  * @link       [AUTHOR_URI]
  * @since      1.0.0
  *
- * @package    [plugin_slug_classname]
- * @subpackage [plugin_slug_classname]/includes
+ * @package    Plugin_Slug
+ * @subpackage Plugin_Slug/includes
  */
 
 /**
@@ -23,11 +23,11 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    [plugin_slug_classname]
- * @subpackage [plugin_slug_classname]/includes
+ * @package    Plugin_Slug
+ * @subpackage Plugin_Slug/includes
  * @author     [AUTHOR_NAME] <[AUTHOR_EMAIL]>
  */
-class [plugin_slug_classname] {
+class Plugin_Slug {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -35,7 +35,7 @@ class [plugin_slug_classname] {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      [plugin_slug]_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      plugin-slug_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -67,12 +67,12 @@ class [plugin_slug_classname] {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( '[PLUGIN_SLUG]_VERSION' ) ) {
-			$this->version = [PLUGIN_SLUG]_VERSION;
+		if ( defined( 'PLUGIN_SLUG_VERSION' ) ) {
+			$this->version = PLUGIN_SLUG_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}
-		$this->plugin_name = '[plugin_slug]';
+		$this->plugin_name = 'plugin-slug';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -86,10 +86,10 @@ class [plugin_slug_classname] {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - [plugin_slug]_Loader. Orchestrates the hooks of the plugin.
-	 * - [plugin_slug]_i18n. Defines internationalization functionality.
-	 * - [plugin_slug]_Admin. Defines all hooks for the admin area.
-	 * - [plugin_slug]_Public. Defines all hooks for the public side of the site.
+	 * - plugin-slug_Loader. Orchestrates the hooks of the plugin.
+	 * - plugin-slug_i18n. Defines internationalization functionality.
+	 * - plugin-slug_Admin. Defines all hooks for the admin area.
+	 * - plugin-slug_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -103,43 +103,43 @@ class [plugin_slug_classname] {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-[plugin_slug]-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-plugin-slug-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-[plugin_slug]-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-plugin-slug-i18n.php';
 
 		/**
 		 * The class responsible for utils (static functions)
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-[plugin_slug]-utils.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-plugin-slug-utils.php';
 
 		/**
 		 * The class responsible for register custom post types / taxonomy / post status
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-[plugin_slug]-custom_post_type.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-plugin-slug-custom_post_type.php';
 		
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-[plugin_slug]-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-plugin-slug-admin.php';
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-[plugin_slug]-settings.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-plugin-slug-settings.php';
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-[plugin_slug]-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-plugin-slug-public.php';
 
-		$this->loader = new [plugin_slug_classname]_Loader();
+		$this->loader = new Plugin_Slug_Loader();
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the [plugin_slug]_i18n class in order to set the domain and to register the hook
+	 * Uses the plugin-slug_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -147,7 +147,7 @@ class [plugin_slug_classname] {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new [plugin_slug_classname]_i18n();
+		$plugin_i18n = new Plugin_Slug_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -162,9 +162,9 @@ class [plugin_slug_classname] {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new [plugin_slug_classname]_Admin( $this->get_plugin_name(), $this->get_version() );
-		$plugin_settings = new [plugin_slug_classname]_Settings( $this->get_plugin_name(), $this->get_version() );
-		$plugin_cpt = new [plugin_slug_classname]_Custom_Post_Type( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Plugin_Slug_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_settings = new Plugin_Slug_Settings( $this->get_plugin_name(), $this->get_version() );
+		$plugin_cpt = new Plugin_Slug_Custom_Post_Type( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -178,13 +178,13 @@ class [plugin_slug_classname] {
 		// Settings 
 
 		// Usage:
-		// $set = [plugin_slug_classname]_Settings_Factory::get_instance('general');
+		// $set = Plugin_Slug_Settings_Factory::get_instance('general');
 		// $set->get_fd_option('lic_key'); // get field setting value
 
 		$this->loader->add_action( 'admin_menu', $plugin_settings, 'add_menu_items');
 		$this->loader->add_action( 'admin_init', $plugin_settings, 'register');
 		$this->loader->add_action( 'wp_ajax_clear_log', $plugin_settings, 'clear_log' );
-		$this->loader->add_action( '[plugin_slug_funcname]_log', $plugin_settings, 'add_log', 10, 2 );
+		$this->loader->add_action( 'plugin_slug_log', $plugin_settings, 'add_log', 10, 2 );
 	}
 
 	/**
@@ -196,7 +196,7 @@ class [plugin_slug_classname] {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new [plugin_slug_classname]_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new Plugin_Slug_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
@@ -230,7 +230,7 @@ class [plugin_slug_classname] {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    [plugin_slug_classname]_Loader    Orchestrates the hooks of the plugin.
+	 * @return    Plugin_Slug_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;

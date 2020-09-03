@@ -22,7 +22,7 @@
  * @link       [AUTHOR_URI]
  * @since      1.0.0
  *
- * @package    [plugin_slug_classname]
+ * @package    Plugin_Slug
  */
 
 // If uninstall not called from WordPress, then exit.
