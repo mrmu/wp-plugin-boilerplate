@@ -5,7 +5,7 @@
 ## Custom post types
 *
 
-## Meta 欄位
+## Meta
 
 ### Post meta
 *
