@@ -68,18 +68,6 @@ class Wppb_Admin {
 	 */
 	public function enqueue_styles() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in wppb_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The wppb_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
 		wp_enqueue_style( 
 			$this->plugin_name, 
 			plugin_dir_url( __FILE__ ) . 'css/wppb-admin.css', 
@@ -96,24 +84,13 @@ class Wppb_Admin {
 	 */
 	public function enqueue_scripts() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in wppb_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The wppb_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
 		wp_enqueue_script( 
 			$this->plugin_name, 
 			plugin_dir_url( __FILE__ ) . 'js/wppb-admin.js', 
 			array( 'jquery' ), 
 			filemtime( (dirname( __FILE__ )) . '/js/wppb-admin.js' ), 
-			false );
+			false 
+		);
 
 	}
 
@@ -131,15 +108,28 @@ class Wppb_Admin {
 	}
 
 	public function class_deps_check_admin_notice() {
-		if (!is_array($this->class_deps_check)) {
-			return;
+		if (is_array($this->class_deps_check)) {
+			foreach ($this->class_deps_check as $chk_class => $info) {
+				if ( $this->class_deps_check[$chk_class]['status'] === false ){
+					?>
+					<div class="notice notice-error is-dismissible">
+						<p>
+							<?php echo $this->class_deps_check[$chk_class]['err_msg']; ?>
+						</p>
+					</div>
+					<?php
+				}
+			}
 		}
-		foreach ($this->class_deps_check as $chk_class => $info) {
-			if ( $this->class_deps_check[$chk_class]['status'] === false ){
+
+		$composer_json_path = PLUGIN_SLUG_PATH . 'composer.json';
+		if (is_file($composer_json_path)) {
+			$composer_autoload_path = PLUGIN_SLUG_PATH . 'vendor/autoload.php';
+			if (!is_file($composer_autoload_path)) {
 				?>
 				<div class="notice notice-error is-dismissible">
 					<p>
-						<?php echo $this->class_deps_check[$chk_class]['err_msg']; ?>
+						<?php printf(__('Please install Composer dependencies. (%s)', $this->plugin_name), $this->plugin_name); ?>
 					</p>
 				</div>
 				<?php

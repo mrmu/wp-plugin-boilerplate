@@ -185,11 +185,11 @@ class Plugin_Slug_Public {
 		<button type="button" id="btn_send_to_backend" class="btn btn-primary">Send to backend</button>
 		<?php
 		
-		/* Load client template from theme dir first, load template file of 
-		 * plugin/templates/ if client template is not exist.	
-		 */
+		// 載入局部自訂的 template 檔的方法：
+		// 先從佈景目錄下載入 template 檔 (my-template.php)，
+		// 若佈景下的 template 不存在則載入 plugin/templates 下的檔案
 
-		/* Pass $vars to template file */
+		// 若要從此處傳遞變數 $vars 到 template 檔案內
 		// set_query_var('vars', $this->vars );
 
 		// if ( $overridden_template = locate_template( 'my-template.php' ) ) {

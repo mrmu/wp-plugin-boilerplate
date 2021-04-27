@@ -183,7 +183,7 @@ class Plugin_Slug {
 
 		$this->loader->add_action( 'admin_menu', $plugin_settings, 'add_menu_items');
 		$this->loader->add_action( 'admin_init', $plugin_settings, 'register');
-		$this->loader->add_action( 'wp_ajax_clear_log', $plugin_settings, 'clear_log' );
+		$this->loader->add_action( 'wp_ajax_clear_log_plugin_slug', $plugin_settings, 'clear_log' );
 		$this->loader->add_action( 'plugin_slug_log', $plugin_settings, 'add_log', 10, 2 );
 	}
 
@@ -200,7 +200,7 @@ class Plugin_Slug {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-		$this->loader->add_action( 'init', $plugin_public, 'register_shortcodes' );
+		$this->loader->add_action( 'wp', $plugin_public, 'register_shortcodes' );
 		$this->loader->add_action( 'wp_head', $plugin_public, 'add_grecaptcha_api_js' );
 		$this->loader->add_action( 'wp_ajax_send_to_backend', $plugin_public, 'send_to_backend' ); // logged in
 		$this->loader->add_action( 'wp_ajax_nopriv_send_to_backend', $plugin_public, 'send_to_backend' ); // not yet login

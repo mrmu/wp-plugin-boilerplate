@@ -42,7 +42,7 @@
 			$(this).next('.custom-file-label').addClass("selected").html(fileName);
 		});
 
-		$(document).on('click', '.clear_log', function( e ){
+		$(document).on('click', '.clear_log_plugin_slug', function( e ){
 			const the_btn = $(this);
 			the_btn.prop('disabled', true);
 			e.preventDefault();
@@ -51,7 +51,7 @@
 				type: 'POST',
 				url: plugin_slug_admin.ajax_url,
 				data: {
-					action: 'clear_log'
+					action: 'clear_log_plugin_slug'
 				},
 				dataType: 'json',
 				success: function(res) {

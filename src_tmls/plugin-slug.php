@@ -37,6 +37,8 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'PLUGIN_SLUG_VERSION', '1.0.0' );
 
+define( 'PLUGIN_SLUG_PATH', plugin_dir_path( __FILE__ ));
+
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-plugin-slug-activator.php

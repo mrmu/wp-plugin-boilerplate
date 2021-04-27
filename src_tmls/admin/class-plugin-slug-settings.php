@@ -255,7 +255,7 @@ class Plugin_Slug_Settings {
 		echo '<h2>'.__('Log', $this->plugin_name).'</h2>';
 		echo '<div class="wrap">';
 		echo '<p>For adding data to log use the hook: <code>do_action( \'plugin_slug_log\', \'src_name\', $data );</code></p>';
-		echo '<a class="button clear_log" href="">'.__('Clear Log', $this->plugin_name).'</a><hr>';
+		echo '<a class="button clear_log_plugin_slug" href="">'.__('Clear Log', $this->plugin_name).'</a><hr>';
 
 		$data = get_option($this->logger_name);
 		if( ! is_array($data)){
