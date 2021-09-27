@@ -27,7 +27,7 @@
 
 ### 後台設定頁
 
-無論要用「制式設定區」還是「完全客製」，都是由 admin/settings/ 底下的 xxx-settings.php 開始設定。xxx-settings.php 透過 add_menu_items() 建立選單項目和對應的設定頁面。
+無論要用「制式設定區」還是「完全客製」，都是由 admin/settings/ 底下的 class-plugin-slug-settings.php 開始設定。class-plugin-slug-settings.php 透過 add_menu_items() 建立選單項目和對應的設定頁面。
 
 #### 定義設定頁面的內容
 直接於 add_menu_items() 建立新的設定，對應到輸出頁面內容的 Functions，在該 Function 裡進行實作即可。
@@ -38,7 +38,7 @@
 
 #### 「制式設定區」的定義宣告：
 
-它 include xxx-abstrat.php 就是定義制式設定區的各種 Functions：
+它 include class-plugin-slug-settings-abstract.php 就是定義制式設定區的各種 Functions：
 * get_fd_option: 取出設定頁的某個元件欄位的值
 * get_fd_setting: 取出設定頁的某個元件設定的值，用於畫出元件
 * 定義各種元件的呈現方法:
@@ -50,11 +50,11 @@
     6. input checkbox
     7. select
 
-接著 include xxx-factory.php 工廠定義可生成的「設定區物件」有哪些，要在外部取得「制式設定區」的設定值，也是透過工廠取得特定設定區物件。
+接著 include class-plugin-slug-settings-factory 工廠定義可生成的「設定區物件」有哪些，要在外部取得「制式設定區」的設定值，也是透過工廠取得特定設定區物件。
 
-接著 include 其他設定區，如 general 設定區 (xxx-settings-general.php) 定義設定區會出現的元件，也能指定要將設定欄位值儲存在哪個 option key (例如: 要覆寫 WP 後台預設的某個 option 設定值)
+接著 include 其他設定區，如 general 設定區 (class-plugin-slug-settings-general.php) 定義設定區會出現的元件，也能指定要將設定欄位值儲存在哪個 option key (例如: 要覆寫 WP 後台預設的某個 option 設定值)
 
-準備好客製設定區的定義檔案後，xxx-settings.php 接著會:
+準備好客製設定區的定義檔案後，class-plugin-slug-settings.php 接著會:
 * 透過 register() 註冊制式設定區：
     * 將建構子定義的設定區註冊好，建立 Tab 式的設定區及其元件。
     * 透過 register_settings() 指定要儲存的 option，利用 Sanitize Function (儲存前消毒)，指定執行 handle_before_save()

@@ -228,8 +228,7 @@ class Plugin_Slug_Settings {
 	public function add_menu_items() {
 		add_menu_page(
 			'[PLUGIN_NAME]', 
-			__('[PLUGIN_NAME]', 
-			$this->plugin_name), 
+			__('[PLUGIN_NAME]', $this->plugin_name), 
 			'manage_options', 
 			$this->page
 		);
