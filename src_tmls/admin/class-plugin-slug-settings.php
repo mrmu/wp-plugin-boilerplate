@@ -175,38 +175,40 @@ class Plugin_Slug_Settings {
 		$cur_option_key = $inputs['cur_option_key'];
 
 		// 若有自行定義 submit btn，由此取得值
-		$submit_btn = $inputs['demo_submit_btn'];
+		if (!empty($inputs['demo_submit_btn'])) {
+			$submit_btn = $inputs['demo_submit_btn'];
 
-		// 若按下 demo_uplaod 的 submit button，就啟動資料上傳
-		if ($submit_btn === 'demo_submit_upload') {
-			// 有上傳檔案
-			if (!empty($_FILES)) {
-				$upload_filenames = $_FILES[$cur_option_key]['name']; // upload filenames
-				// 若有多個上傳欄位，就會有多個 $fd_id
-				foreach ($upload_filenames as $fd_id => $file_name) {
-					// 上傳後的檔案會存成 attachment，另外再存下 meta: _attachment_fd_id，以此判斷屬於哪個 setting fd 
-					// 若先前 setting fd 裡已有設定，就取出目前的設定
-					$imp_args = array(
-						'numberposts'      => 1,
-						'orderby'          => 'date',
-						'order'            => 'DESC',
-						'meta_key'         => '_attachment_fd_id',
-						'meta_value'       => $fd_id,
-						'post_type'        => 'attachment'
-					);
-					// 清除目前的設定
-					$imp_atts = get_posts($imp_args);
-					foreach ($imp_atts as $att) {
-						wp_delete_attachment($att->ID);
+			// 若按下 demo_uplaod 的 submit button，就啟動資料上傳
+			if ($submit_btn === 'demo_submit_upload') {
+				// 有上傳檔案
+				if (!empty($_FILES)) {
+					$upload_filenames = $_FILES[$cur_option_key]['name']; // upload filenames
+					// 若有多個上傳欄位，就會有多個 $fd_id
+					foreach ($upload_filenames as $fd_id => $file_name) {
+						// 上傳後的檔案會存成 attachment，另外再存下 meta: _attachment_fd_id，以此判斷屬於哪個 setting fd 
+						// 若先前 setting fd 裡已有設定，就取出目前的設定
+						$imp_args = array(
+							'numberposts'      => 1,
+							'orderby'          => 'date',
+							'order'            => 'DESC',
+							'meta_key'         => '_attachment_fd_id',
+							'meta_value'       => $fd_id,
+							'post_type'        => 'attachment'
+						);
+						// 清除目前的設定
+						$imp_atts = get_posts($imp_args);
+						foreach ($imp_atts as $att) {
+							wp_delete_attachment($att->ID);
+						}
+						// 更新設定
+						$tmp_name = $_FILES[$cur_option_key]['tmp_name'][$fd_id];
+						if (!empty($file_name) && !empty($tmp_name)) {
+							$attach_id = $this->upload_and_save_as_attachemnt($file_name, $tmp_name);
+							update_post_meta($attach_id, '_attachment_fd_id', $fd_id);
+						}
 					}
-					// 更新設定
-					$tmp_name = $_FILES[$cur_option_key]['tmp_name'][$fd_id];
-					if (!empty($file_name) && !empty($tmp_name)) {
-						$attach_id = $this->upload_and_save_as_attachemnt($file_name, $tmp_name);
-						update_post_meta($attach_id, '_attachment_fd_id', $fd_id);
-					}
+					// do_action('plugin_slug_log', 'sanitize input', $_FILES);
 				}
-				// do_action('plugin_slug_log', 'sanitize input', $_FILES);
 			}
 		}
 
