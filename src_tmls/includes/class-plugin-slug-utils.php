@@ -22,7 +22,7 @@ class Plugin_Slug_Utils {
 
 	public static function wc_mail($args) {
 		if (empty($args) || !is_array($args) || empty($args['to']) ) {
-			return new WP_Error( 'invalid_args', __( 'WC Mail: Invalid arguments.', plugin-slug ) );
+			return new WP_Error( 'invalid_args', __( 'WC Mail: Invalid arguments.', 'plugin-slug' ) );
 		}
 		
 		$to = $args['to'];
